@@ -1,0 +1,8 @@
+import socket
+
+mySocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_STREAM, proto=0, fileno=None)print("Socket created.")
+hostname = 'localhost'
+portno = 9999
+mySocket.bind((hostname, portno))print("Socket bound to address {} and port number {}".format(hostname, portno))
+mySocket.listen(5)print("Listening for client.")while True:    client, client_addr = mySocket.accept()    print("Connection established with client at address {}".format(client_addr))    msg = client.recv(1024).decode()    print("Message received from the client:")    print(msg)    print("Sending acknowledgment to the client.")    msg_out = "Message received: {}. Thank you.".format(msg).encode()    client.send(msg_out)print("Terminating the connection.")
+client.close()break
